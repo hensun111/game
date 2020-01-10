@@ -1,3 +1,37 @@
+function hero () {
+    mySprite = sprites.create(img`
+. . . . 4 4 . . . . . 4 4 . . . 
+. . . 4 4 4 4 . . 4 4 4 4 . . . 
+. . 4 4 4 4 4 4 4 4 4 4 4 4 . . 
+. . 4 f f f 4 4 f f f 4 4 4 . . 
+. . 4 f 1 f 4 4 f 1 f 4 4 4 . . 
+. . 4 f f f 4 4 f f f 4 4 4 . . 
+. . 4 4 4 4 4 4 4 4 4 4 4 4 . . 
+. . 4 4 f f f f f f 4 . . . . . 
+. . 4 4 f f f f f f 4 . . . . 4 
+. . 4 4 f f f f f f 4 4 . . . 4 
+. . 4 4 4 4 4 4 4 4 4 4 4 . 4 4 
+. . . f f f f f f f f f f f 4 . 
+. . . 4 4 4 4 4 4 4 4 4 4 4 . . 
+. . . f f f f f f f f . . . . . 
+. . . . f f . . f f . . . . . . 
+. . . . f f . . f f . . . . . . 
+`, SpriteKind.Player)
+    mySprite.setPosition(82, 49)
+    controller.moveSprite(mySprite, 400, 400)
+}
+function score () {
+    info.changeScoreBy(999999)
+}
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
+    info.changeScoreBy(999999)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, otherSprite) {
+    overlap()
+})
+function overlap () {
+    game.over(false)
+}
 function projectile () {
     guy = sprites.createProjectileFromSide(img`
 . . . . . . . 5 5 5 . . . . . . . . . . . . . . . . . . . . 
@@ -50,43 +84,9 @@ function projectile () {
 . . . . . . . . . . . . . . . . 
 `, SpriteKind.Food)
 }
-function overlap () {
-    game.over(false)
-}
-function score () {
-    info.changeScoreBy(999999)
-}
-function hero () {
-    mySprite = sprites.create(img`
-. . . . 4 4 . . . . . 4 4 . . . 
-. . . 4 4 4 4 . . 4 4 4 4 . . . 
-. . 4 4 4 4 4 4 4 4 4 4 4 4 . . 
-. . 4 f f f 4 4 f f f 4 4 4 . . 
-. . 4 f 1 f 4 4 f 1 f 4 4 4 . . 
-. . 4 f f f 4 4 f f f 4 4 4 . . 
-. . 4 4 4 4 4 4 4 4 4 4 4 4 . . 
-. . 4 4 f f f f f f 4 . . . . . 
-. . 4 4 f f f f f f 4 . . . . 4 
-. . 4 4 f f f f f f 4 4 . . . 4 
-. . 4 4 4 4 4 4 4 4 4 4 4 . 4 4 
-. . . f f f f f f f f f f f 4 . 
-. . . 4 4 4 4 4 4 4 4 4 4 4 . . 
-. . . f f f f f f f f . . . . . 
-. . . . f f . . f f . . . . . . 
-. . . . f f . . f f . . . . . . 
-`, SpriteKind.Player)
-    mySprite.setPosition(82, 49)
-    controller.moveSprite(mySprite, 400, 400)
-}
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
-    info.changeScoreBy(999999)
-})
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, otherSprite) {
-    overlap()
-})
-let mySprite: Sprite = null
 let mySprite2: Sprite = null
 let guy: Sprite = null
+let mySprite: Sprite = null
 hero()
 game.onUpdateInterval(1000, function () {
     projectile()
